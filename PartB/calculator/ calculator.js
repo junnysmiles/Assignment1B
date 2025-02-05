@@ -24,68 +24,32 @@ function handleSubmit(event) {
     let output = document.getElementById('output');
 
     // Check if any fields is empty - i tried to use this to loop through and make code shorter but for some reason wont work
-    let arrayForm = 
-    [
-        {
-            text: "Mortgage",
-            input: mortgage.value.trim(),
-        },
-        {
-            text: "Interest",
-            input: interest.value.trim(),
-        },
-        {
-            text: "Loan Length",
-            input: years.value.trim(),
-        },
-        {
-            text: "Postal Code",
-            input: postalCode.value.trim(),
-        }
-    ]
+    // let arrayForm = 
+    // [
+    //     {
+    //         text: "Mortgage",
+    //         input: mortgage.value.trim(),
+    //     },
+    //     {
+    //         text: "Interest",
+    //         input: interest.value.trim(),
+    //     },
+    //     {
+    //         text: "Loan Length",
+    //         input: years.value.trim(),
+    //     },
+    //     {
+    //         text: "Postal Code",
+    //         input: postalCode.value.trim(),
+    //     }
+    // ]
 
     // HERE IS WHERE I TRIED TO LOOP THROUGH THE FORM TO CHECK IF EMPTY - DIDNT WORK BECAUSE CLASSLIST DIDNT LIKE ARRAYS
-    for (let i = 0; i < arrayForm.length; i++) {
-        if (arrayForm[i].input === "") {
-            errors.push(`${arrayForm[i].text} field is empty!`);
-            was_errors = true;
-            mortgage.classList.add('is-invalid');
-            interest.classList.add('is-invalid');
-            years.classList.add('is-invalid');
-            postalCode.classList.add('is-invalid');
-        } else {
-            mortgage.classList.remove('is-invalid');
-            interest.classList.remove('is-invalid');
-            years.classList.remove('is-invalid');
-            postalCode.classList.remove('is-invalid');
-        }
-    }
-
-    // Check if any fields is empty - not sure why the first two fields wont turn red. been at it for awhile
-    // if (mortgage.value.trim() === "") {
-    //     mortgage.classList.add('is-invalid');
-    //     errors.push("Mortage Amount field is empty!");
-    //     was_errors = true;
-    // } 
-    // if (interest.value.trim() === "") {
-    //     interest.classList.add('is-invalid');
-    //     errors.push("Percentage Rate field is empty!");
-    //     was_errors = true;
-    // }
-    // if (years.value.trim() === "") {
-    //     years.classList.add('is-invalid');
-    //     errors.push("Loan Length field is empty!");
-    //     was_errors = true;
-    // } 
-    // if (postalCode.value.trim() === "") {
-    //     postalCode.classList.add('is-invalid');
-    //     errors.push("Postal Code field is empty!");
-    //     was_errors = true;
-    // } else {
-    //     mortgage.classList.remove('is-invalid');
-    //     interest.classList.remove('is-invalid');
-    //     years.classList.remove('is-invalid');
-    //     postalCode.classList.remove('is-invalid');
+    // for (let i = 0; i < arrayForm.length; i++) {
+    //     if (arrayForm[i].input === "") {
+    //         errors.push(`${arrayForm[i].text} field is empty!`);
+    //         was_errors = true;
+    //     }
     // }
 
     // Check if numbers are over 0 for mortgage, interest and years - i tried to use this to loop through and make code shorter but for some reason wont work
@@ -105,48 +69,59 @@ function handleSubmit(event) {
         }
     ]
 
-    for (let i = 0; i < numberForm.length; i++) {
-        if (numberForm[i].input < 0 || isNaN(numberForm[i].input)) {
-            errors.push(`${numberForm[i].text} must be a positive number!`);
-            was_errors = true;
+    // for (let i = 0; i < numberForm.length; i++) {
+    //     if (numberForm[i].input < 0 || isNaN(numberForm[i].input)) {
+    //         errors.push(`${numberForm[i].text} must be a positive number!`);
+    //         was_errors = true;
+    //     } else {
+    //         mortgage.classList.remove('is-invalid');
+    //         interest.classList.remove('is-invalid');
+    //         years.classList.remove('is-invalid');
+    //     }
+    // }
 
-            mortgage.classList.add('is-invalid');
-            interest.classList.add('is-invalid');
-            years.classList.add('is-invalid');
-        } else {
-            mortgage.classList.remove('is-invalid');
-            interest.classList.remove('is-invalid');
-            years.classList.remove('is-invalid');
-        }
+    // Check for mortgage values
+    if (mortgage.value.trim() < 0 || isNaN(mortgage.value.trim())) {
+        mortgage.classList.add('is-invalid');
+        errors.push("Mortgage Amount must be a number!");
+        was_errors = true;
+    } else if (mortgage.value.trim() === "") {
+        mortgage.classList.add('is-invalid');
+        errors.push("Mortgage Amount field is empty!");
+        was_errors = true;
+    }else {
+        mortgage.classList.remove('is-invalid');
     }
 
-    // Check if numbers are over 0 for mortgage, interest and years
-    // if (mortgage.value.trim() < 0 || isNaN(mortgage.value.trim())) {
-    //     mortgage.classList.add('is-invalid');
-    //     errors.push("Mortgage Amount must be a number!");
-    //     was_errors = true;
-    // } 
-    // if (interest.value.trim() < 0 || isNaN(interest.value.trim())) {
-    //     interest.classList.add('is-invalid');
-    //     errors.push("Percentage Rage must be a number!");
-    //     was_errors = true;
-    // }
-    // if (years.value.trim() < 0 || isNaN(years.value.trim())) {
-    //     years.classList.add('is-invalid');
-    //     errors.push("Loan Length must be a number!");
-    //     was_errors = true;
-    // }
+    // Check for interest values
+    if (interest.value.trim() < 0 || isNaN(interest.value.trim())) {
+        interest.classList.add('is-invalid');
+        errors.push("Percentage Rage must be a number!");
+        was_errors = true;
+    } else if (interest.value.trim() === "") {
+        interest.classList.add('is-invalid');
+        errors.push("Percentage Rate field is empty!");
+        was_errors = true;
+    } else {
+        interest.classList.remove('is-invalid');
+    }
 
-
-    // Check if numbers are between 5-30 for loan years
-    if (years.value.trim() < 5 || years.value.trim() > 30) {
+    // Check for loan length values
+    if (years.value.trim() < 0 || isNaN(years.value.trim())) {
+        years.classList.add('is-invalid');
+        errors.push("Loan Length must be a number!");
+        was_errors = true;
+    } else if (years.value.trim() === "") {
+        years.classList.add('is-invalid');
+        errors.push("Loan Length field is empty!");
+        was_errors = true;
+    } else if (years.value.trim() < 5 || years.value.trim() > 30) {
         years.classList.add('is-invalid');
         errors.push(`${numberForm[2].text} must be between 5-30 years!`);
         was_errors = true;
     } else {
         years.classList.remove('is-invalid');
     }
-
 
     // Check if postal code is 7 characters long and starts with L
     if (postalCodeLength < 7) {
